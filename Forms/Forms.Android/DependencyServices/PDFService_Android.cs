@@ -6,6 +6,8 @@ using Forms.Droid.DependencyServices;
 using Java.IO;
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PDFDependencyService_Android))]
@@ -15,7 +17,7 @@ namespace Forms.Droid.DependencyServices
     {
         public PDFDependencyService_Android() { }
 
-        public string ConvertHtmlToPDF(string html, string fileName)
+        public async Task<string> ConvertHtmlToPDF(string html, string fileName)
         {
             var dir = new Java.IO.File(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath + "/Download/");
             var file = new Java.IO.File(dir + "/" + fileName + ".pdf");
@@ -41,19 +43,35 @@ namespace Forms.Droid.DependencyServices
             //int height = heightPixels;
             int width = 2102;
             int height = 2973;
-
             webpage.Layout(0, 0, width, height);
-            //webpage.SetWebViewClient(new WebViewCallBack(file.ToString()));
-            webpage.SetWebViewClient(new WebViewCallBack(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath + "/Download/test.pdf"));
+
+            var client = new WebViewCallBack(file.ToString());
+            var tokenSource = new CancellationTokenSource();
+            var task = Task.Run(() =>
+            {
+                if (tokenSource.Token.IsCancellationRequested) return;
+                while (true)
+                {
+                    if (tokenSource.Token.IsCancellationRequested) break;
+                }
+            }, tokenSource.Token);
+
+            client.OnPageLoadFinished += (s, e) =>
+            {
+                tokenSource.Cancel();
+            };
+            webpage.SetWebViewClient(client);
             webpage.LoadDataWithBaseURL("", html, "text/html", "UTF-8", null);
 
-            //return file.ToString();
-            return Android.OS.Environment.ExternalStorageDirectory.AbsolutePath + "/Download/test.pdf";
+            await task;
+            return file.ToString();
         }
 
         class WebViewCallBack : WebViewClient
         {
             string fileNameWithPath = null;
+
+            public event EventHandler OnPageLoadFinished;
 
             public WebViewCallBack(string path)
             {
@@ -83,14 +101,13 @@ namespace Forms.Droid.DependencyServices
                 }
                 finally
                 {
-                    if (null != filestream)
-                        filestream.Close();
-
-                    if (null != fos)
-                        fos.Close();
+                    filestream?.Close();
+                    fos?.Close();
                 }
 
                 document.Close();
+
+                OnPageLoadFinished?.Invoke(this, new EventArgs());
             }
         }
     }

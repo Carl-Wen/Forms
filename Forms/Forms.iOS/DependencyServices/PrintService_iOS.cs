@@ -77,8 +77,14 @@ namespace Forms.iOS.DependencyServices
             myRenderer.AddPrintFormatter(viewFormatter, 0);
             // 渲染html
             controller.PrintPageRenderer = myRenderer;
-            var result = false;
-            controller.PresentAsync(true, out result);
+
+            controller.Present(true, (handler, completed, err) =>
+            {
+                if (!completed && err != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Printer Error");
+                }
+            });
         }
 
         public void SetPrintServiceCallBack(IPrintServiceCallBack callBack)

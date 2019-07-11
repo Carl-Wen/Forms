@@ -52,14 +52,14 @@ namespace Forms.Views
             }
         }
 
-        private void _tappedDoc(object sender, EventArgs e)
+        private async void _tappedDoc(object sender, EventArgs e)
         {
             var printService = DependencyService.Resolve<IPrintService>();
             var pdfService = DependencyService.Resolve<IPdfService>();
 
             if (null != printService && null != pdfService)
             {
-                var path = pdfService.ConvertHtmlToPDF(htmlStr, "test");
+                var path = await pdfService.ConvertHtmlToPDF(htmlStr, "test");
                 printService.SetPrintServiceCallBack(this);
                 printService.PrintDocument(path);
             }

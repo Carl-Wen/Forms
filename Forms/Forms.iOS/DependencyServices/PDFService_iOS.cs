@@ -4,6 +4,7 @@ using Forms.iOS.DependencyServices;
 using Foundation;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 
@@ -14,7 +15,7 @@ namespace Forms.iOS.DependencyServices
     {
         public PDFDependencyService_IOS() { }
 
-        public string ConvertHtmlToPDF(string html, string filename)
+        public Task<string> ConvertHtmlToPDF(string html, string filename)
         {
             UIWebView webView = new UIWebView(new CGRect(0, 0, 6.5 * 72, 9 * 72));
 

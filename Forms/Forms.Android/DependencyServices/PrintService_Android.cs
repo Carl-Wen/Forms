@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.Graphics;
-using Android.Graphics.Pdf;
+﻿using Android.Content;
 using Android.OS;
 using Android.Print;
-using Android.Print.Pdf;
-using Android.PrintServices;
-using Android.Runtime;
-using Android.Views;
 using Android.Webkit;
-using Android.Widget;
 using Forms.DependencyServices;
 using Forms.Droid.DependencyServices;
+using Java.IO;
+using Java.Lang;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PrintService_Android))]
@@ -45,9 +33,10 @@ namespace Forms.Droid.DependencyServices
             var attr = new PrintAttributes.Builder()
                 .SetColorMode(PrintColorMode.Color)
                 .SetMediaSize(PrintAttributes.MediaSize.IsoA4)
+                .SetDuplexMode(DuplexMode.LongEdge)
                 .Build();
             var jobName = Android.App.Application.Context.PackageName + ".PrintDocument";
-            var job = PrintManager.Print(jobName, new PrintAdapter(filePath), null);
+            var job = PrintManager.Print(jobName, new PrintAdapter(filePath), attr);
             PrintManager.PrintJobs.Add(job);
         }
 
@@ -80,9 +69,6 @@ namespace Forms.Droid.DependencyServices
     {
         private string _filePath;
         private IPrintServiceCallBack _callBack;
-        private int _totalpages;
-        private int _pageHeight;
-        private int _pageWidth;
 
         public PrintAdapter(string filePath) : base()
         {
@@ -93,56 +79,61 @@ namespace Forms.Droid.DependencyServices
         {
             if (cancellationSignal.IsCanceled)
             {
-                callback.OnLayoutCancelled();
-                return;
-            }
-
-            ParcelFileDescriptor mFileDescriptor = null;
-            PdfRenderer pdfRender = null;
-
-            try
-            {
-                mFileDescriptor = ParcelFileDescriptor.Open(new Java.IO.File(_filePath), ParcelFileMode.ReadOnly);
-                if (mFileDescriptor != null)
-                    pdfRender = new PdfRenderer(mFileDescriptor);
-
-                _totalpages = pdfRender.PageCount;
-            }
-            catch (FileNotFoundException e)
-            {
-
-            }
-            catch (IOException e)
-            {
-
-            }
-            finally
-            {
-                if (null != mFileDescriptor)
-                    mFileDescriptor.Close();
-                if (null != pdfRender)
-                    pdfRender.Close();
-            }
-
-            if (_totalpages > 0)
-            {
-                PrintDocumentInfo.Builder builder = new PrintDocumentInfo
-                        .Builder("快速入门.pdf")
-                        .SetContentType(PrintContentType.Document)
-                        .SetPageCount(_totalpages);  //构建文档配置信息
-
-                PrintDocumentInfo info = builder.Build();
-                callback.OnLayoutFinished(info, true);
+                callback?.OnLayoutCancelled();
             }
             else
             {
-                callback.OnLayoutFailed("Page count is zero.");
+                var builder = new PrintDocumentInfo.Builder("filename.pdf");
+                builder.SetContentType(PrintContentType.Document)
+                    .SetPageCount(PrintDocumentInfo.PageCountUnknown);
+                callback.OnLayoutFinished(builder.Build(), !(newAttributes == oldAttributes));
             }
         }
 
         public override void OnWrite(PageRange[] pages, ParcelFileDescriptor destination, CancellationSignal cancellationSignal, WriteResultCallback callback)
         {
-            ;
+            InputStream input = null;
+            OutputStream output = null;
+            try
+            {
+                File file = new File(_filePath);
+                input = new FileInputStream(file);
+                output = new FileOutputStream(destination.FileDescriptor);
+
+                byte[] buf = new byte[16384];
+                int size;
+
+                while ((size = input.Read(buf)) >= 0 && !cancellationSignal.IsCanceled)
+                {
+                    output.Write(buf, 0, size);
+                }
+
+                if (cancellationSignal.IsCanceled)
+                {
+                    callback.OnWriteCancelled();
+                }
+                else
+                {
+                    callback.OnWriteFinished(new PageRange[] { PageRange.AllPages });
+                }
+            }
+            catch (Exception e)
+            {
+                callback.OnWriteFailed(e.Message);
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+            finally
+            {
+                try
+                {
+                    input?.Close();
+                    output?.Close();
+                }
+                catch (IOException e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                }
+            }
         }
     }
 }
