@@ -13,7 +13,7 @@ namespace Forms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CircleImagePage : ContentPage, IPrintServiceCallBack
     {
-        private static string htmlStr = "<!DOCTYPE html><html><head><title>这是个标题</title></head><body><h1>这是个标题1</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题2</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题3</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题4</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题5</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题6</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题7</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题8</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题9</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题10</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p></body></html>";
+        private static string htmlStr = "<!DOCTYPE html><html><head><title>这是个标题</title></head><body><h1>这是个标题1</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题2</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题3</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题4</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题5</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题6</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题7</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题8</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题9</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题10</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p><h1>这是个标题11</h1><h1>这是一个一个简单的HTML</h1><p>Hello World！</p></body></html>";
 
         public CircleImagePage()
         {

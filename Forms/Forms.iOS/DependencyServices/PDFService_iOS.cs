@@ -15,7 +15,7 @@ namespace Forms.iOS.DependencyServices
     {
         public PDFDependencyService_IOS() { }
 
-        public Task<string> ConvertHtmlToPDF(string html, string filename)
+        public async Task<string> ConvertHtmlToPDF(string html, string filename)
         {
             UIWebView webView = new UIWebView(new CGRect(0, 0, 6.5 * 72, 9 * 72));
 
