@@ -95,7 +95,7 @@ namespace Forms.Droid.DependencyServices
 
             public override void OnPageFinished(Android.Webkit.WebView myWebview, string url)
             {
-                CreatePDF1(myWebview);
+                CreatePDF2(myWebview);
             }
 
             private async void CreatePDF2(Android.Webkit.WebView webview)

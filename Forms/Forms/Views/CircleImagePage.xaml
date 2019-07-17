@@ -36,6 +36,7 @@
             <Frame 
                 Grid.Column="1"
                 CornerRadius="64"
+                IsClippedToBounds="True"
                    BorderColor="AliceBlue"
                    HorizontalOptions="Center"
                    VerticalOptions="Start"
