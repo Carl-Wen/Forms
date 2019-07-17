@@ -73,7 +73,6 @@ namespace Forms.Droid.DependencyServices
 
             await task;
 
-
             return file.ToString();
         }
 
@@ -157,7 +156,7 @@ namespace Forms.Droid.DependencyServices
                 }
                 else if (method.Name.Equals("onWriteFinished"))
                 {
-                    OnPageLoadFinished.Invoke(this, new EventArgs());
+                    OnPageLoadFinished?.Invoke(this, new EventArgs());
                 }
                 else
                 {

@@ -4,8 +4,10 @@ using Forms.iOS.DependencyServices;
 using Foundation;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using UIKit;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PDFDependencyService_IOS))]
@@ -22,11 +24,31 @@ namespace Forms.iOS.DependencyServices
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var file = Path.Combine(documents, filename + ".pdf");
 
-            webView.Delegate = new WebViewCallBack(file);
+            var webDelegate = new WebViewCallBack(file);
+            webView.Delegate = webDelegate;
             webView.ScalesPageToFit = true;
             webView.UserInteractionEnabled = false;
             webView.BackgroundColor = UIColor.White;
+
+            var tokenSource = new CancellationTokenSource();
+            var task = Task.Run(async () =>
+            {
+                if (tokenSource.Token.IsCancellationRequested) return;
+                while (true)
+                {
+                    await Task.Delay(1);
+                    if (tokenSource.Token.IsCancellationRequested) break;
+                }
+            }, tokenSource.Token);
+
+            webDelegate.OnPageLoadFinished += (s, e) =>
+            {
+                tokenSource.Cancel();
+            };
+
             webView.LoadHtmlString(html, null);
+
+            await task;
 
             return file;
         }
@@ -35,11 +57,12 @@ namespace Forms.iOS.DependencyServices
         {
 
             string filename = null;
+            public event EventHandler OnPageLoadFinished;
             public WebViewCallBack(string path)
             {
                 this.filename = path;
-
             }
+
             public override void LoadingFinished(UIWebView webView)
             {
                 double height, width;
@@ -66,6 +89,8 @@ namespace Forms.iOS.DependencyServices
                 renderer.SetValueForKey(NSValue.FromObject(printableRect), (NSString)"printableRect");
                 NSData file = PrintToPDFWithRenderer(renderer, paperRect);
                 File.WriteAllBytes(filename, file.ToArray());
+
+                OnPageLoadFinished?.Invoke(this, new EventArgs());
             }
 
             private NSData PrintToPDFWithRenderer(UIPrintPageRenderer renderer, CGRect paperRect)

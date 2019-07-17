@@ -46,7 +46,7 @@ namespace Forms.Views
             if (null != printService && null != pdfService)
             {
                 //var path = pdfService.ConvertHtmlToPDF(htmlStr, "test");
-                printService.SetPrintServiceCallBack(this);
+                //printService.SetPrintServiceCallBack(this);
                 //printService.PrintDocument(path);
                 printService.PrintHtml(htmlStr);
             }
@@ -60,7 +60,7 @@ namespace Forms.Views
             if (null != printService && null != pdfService)
             {
                 var path = await pdfService.ConvertHtmlToPDF(htmlStr, "test");
-                printService.SetPrintServiceCallBack(this);
+                //printService.SetPrintServiceCallBack(this);
                 printService.PrintDocument(path);
             }
         }
