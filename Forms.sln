@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms.iOS", "Forms\Forms.iO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms", "Forms\Forms\Forms.csproj", "{432E8CFB-09B3-4352-986E-FA21CE7B47B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DexMakerBinding", "DexMakerBinding\DexMakerBinding.csproj", "{BF09FFD1-4DC6-49F2-8E8E-27C76A1FC19C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DexMakerBinding", "Forms\DexMakerBinding\DexMakerBinding.csproj", "{BF09FFD1-4DC6-49F2-8E8E-27C76A1FC19C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

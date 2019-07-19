@@ -100,7 +100,7 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DexMakerBinding\DexMakerBinding.csproj">
+    <ProjectReference Include="..\DexMakerBinding\DexMakerBinding.csproj">
       <Project>{bf09ffd1-4dc6-49f2-8e8e-27c76a1fc19c}</Project>
       <Name>DexMakerBinding</Name>
     </ProjectReference>
