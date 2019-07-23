@@ -22,12 +22,13 @@ namespace Forms.Views
             {
                 new HomeMenuItem {Id = MenuItemType.Circle, Title="Circle" },
                 new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" }
+                new HomeMenuItem {Id = MenuItemType.About, Title="About" },
+                new HomeMenuItem {Id = MenuItemType.SwipeListView, Title="SwipeList" }
             };
 
             ListViewMenu.ItemsSource = menuItems;
 
-            ListViewMenu.SelectedItem = menuItems[0];
+            ListViewMenu.SelectedItem = menuItems[3];
 
             ListViewMenu.ItemSelected += async (sender, e) =>
             {

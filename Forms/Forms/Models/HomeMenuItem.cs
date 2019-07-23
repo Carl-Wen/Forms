@@ -8,7 +8,8 @@ namespace Forms.Models
     {
         Circle,
         Browse,
-        About
+        About,
+        SwipeListView
     }
     public class HomeMenuItem
     {

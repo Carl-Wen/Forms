@@ -19,7 +19,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:CircleImagePage />
+                <views:SwipeListViewPage />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

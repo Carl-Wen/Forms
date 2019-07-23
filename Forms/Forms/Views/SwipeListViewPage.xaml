@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:widget="clr-namespace:Forms.Widget"
+             mc:Ignorable="d"
+             x:Class="Forms.Views.SwipeListViewPage">
+    <ListView x:Name="MyListView"
+            ItemsSource="{Binding Items}"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement">
+        <!--<d:ListView.ItemsSource>
+            <x:Array Type="{x:Type x:String}">
+                <x:String>Item 1</x:String>
+                <x:String>Item 2</x:String>
+                <x:String>Item 3</x:String>
+                <x:String>Item 4</x:String>
+                <x:String>Item 5</x:String>
+            </x:Array>
+        </d:ListView.ItemsSource>-->
+        <!--Built in Cells-->
+        <!--<ListView.ItemTemplate>
+        <DataTemplate>
+            <TextCell Text="{Binding .}" d:Text="{Binding .}" />
+        </DataTemplate>
+        </ListView.ItemTemplate>-->
+
+        <!--Custom View Cells-->
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <widget:SwipeStackLayout 
+                        Orientation="Horizontal" 
+                        HeightRequest="72">
+                        <Label 
+                            Text="{Binding .}" 
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{DynamicResource ListItemTextStyle}" />
+                        <Label 
+                            Text="{Binding .}"
+                            BackgroundColor="GreenYellow"
+                            VerticalOptions="FillAndExpand"  
+                            HorizontalOptions="FillAndExpand"
+                            Style="{DynamicResource ListItemDetailTextStyle}">
+                        </Label>
+                        <widget:SwipeStackLayout.GestureRecognizers>
+                            <SwipeGestureRecognizer Swiped="Handle_ItemSwipeLeft" Direction="Left"  CommandParameter="{Binding .}}"/>
+                            <SwipeGestureRecognizer Swiped="Handle_ItemSwipeRight" Direction="Right" CommandParameter="{Binding .}}"/>
+                        </widget:SwipeStackLayout.GestureRecognizers>
+                    </widget:SwipeStackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+    </ListView>
+</ContentPage>
