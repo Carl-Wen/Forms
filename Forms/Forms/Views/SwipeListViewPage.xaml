@@ -10,6 +10,7 @@
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
+        <!--ItemTapped="Handle_ItemTapped"-->
         <!--<d:ListView.ItemsSource>
             <x:Array Type="{x:Type x:String}">
                 <x:String>Item 1</x:String>
@@ -31,26 +32,33 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <widget:SwipeStackLayout 
+                    <StackLayout 
                         Orientation="Horizontal" 
                         HeightRequest="72">
                         <Label 
                             Text="{Binding .}" 
                             VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="StartAndExpand"
-                            Style="{DynamicResource ListItemTextStyle}" />
-                        <Label 
-                            Text="{Binding .}"
-                            BackgroundColor="GreenYellow"
-                            VerticalOptions="FillAndExpand"  
+                            HorizontalOptions="StartAndExpand" />
+                        <widget:SwipeStackLayout 
+                            VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand"
-                            Style="{DynamicResource ListItemDetailTextStyle}">
-                        </Label>
-                        <widget:SwipeStackLayout.GestureRecognizers>
-                            <SwipeGestureRecognizer Swiped="Handle_ItemSwipeLeft" Direction="Left"  CommandParameter="{Binding .}}"/>
-                            <SwipeGestureRecognizer Swiped="Handle_ItemSwipeRight" Direction="Right" CommandParameter="{Binding .}}"/>
-                        </widget:SwipeStackLayout.GestureRecognizers>
-                    </widget:SwipeStackLayout>
+                            BackgroundColor="Cyan"
+                            SwipeLeft="ItemSwipeLeft"
+                            SwipeRight="ItemSwipeRight"
+                            CommandParameter="{Binding .}">
+                            <Label 
+                                Text="{Binding .}"
+                                BackgroundColor="GreenYellow"
+                                VerticalOptions="CenterAndExpand"  
+                                HorizontalOptions="CenterAndExpand">
+                            </Label>
+
+                            <!--<widget:SwipeStackLayout.GestureRecognizers>
+                                <SwipeGestureRecognizer Swiped="Handle_ItemSwipeLeft" Direction="Left" CommandParameter="{Binding .}"/>
+                                <SwipeGestureRecognizer Swiped="Handle_ItemSwipeRight" Direction="Right" CommandParameter="{Binding .}"/>
+                            </widget:SwipeStackLayout.GestureRecognizers>-->
+                        </widget:SwipeStackLayout>
+                    </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+﻿using Android.Content;
 using Android.Views;
-using Android.Widget;
 using Forms.Droid.Renderers;
 using Forms.Widget;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -19,9 +11,7 @@ namespace Forms.Droid.Renderers
 {
     public class SwipeStackLayoutRenderer : ViewRenderer
     {
-        const int MinSwipeLength = 200;
-
-        int RealMinLength = MinSwipeLength;
+        private float startX, startY;
 
         public SwipeStackLayoutRenderer(Context context) : base(context)
         {
@@ -30,114 +20,83 @@ namespace Forms.Droid.Renderers
 
         public override bool OnTouchEvent(MotionEvent e)
         {
-            System.Console.WriteLine(string.Format("TouchEvent: Action:{0} X:{1} Y:{2}", e.Action, e.GetX(), e.GetY()));
-            return base.OnTouchEvent(e);
-        }
+            var result = base.OnTouchEvent(e);
 
-        public override bool OnInterceptTouchEvent(MotionEvent e)
-        {
-            System.Console.WriteLine(string.Format("InterceptTouchEvent: Action:{0} X:{1} Y:{2}", e.Action, e.GetX(), e.GetY()));
-            return base.OnInterceptTouchEvent(e);
-        }
-
-        public override bool DispatchTouchEvent(MotionEvent e)
-        {
-            System.Console.WriteLine(string.Format("DispatchTouchEvent: Action:{0} X:{1} Y:{2}", e.Action, e.GetX(), e.GetY()));
-
-            if (TouchDispatcher.TouchingView == null && e.ActionMasked == MotionEventActions.Down)
-            {
-                TouchDispatcher.TouchingView = this.Element as SwipeStackLayout;
-                TouchDispatcher.StartingBiasX = e.GetX();
-                TouchDispatcher.StartingBiasY = e.GetY();
-                TouchDispatcher.InitialTouch = DateTime.Now;
-            }
-
-            switch (e.ActionMasked)
+            switch (e.Action)
             {
                 case MotionEventActions.Down:
-                    if (null == TouchDispatcher.TouchingView)
+                    startX = e.GetX();
+                    startY = e.GetY();
+                    Parent.RequestDisallowInterceptTouchEvent(true);
+                    break;
+                case MotionEventActions.Cancel:
+                case MotionEventActions.Up:
+                    Parent.RequestDisallowInterceptTouchEvent(false);
+                    var isLeft = false;
+                    var isSwipe = IsSwipeHorizontal(e, out isLeft);
+                    if (isSwipe)
                     {
-                        TouchDispatcher.TouchingView = this.Element as SwipeStackLayout;
-                        TouchDispatcher.StartingBiasX = e.GetX();
-                        TouchDispatcher.StartingBiasY = e.GetY();
-                        TouchDispatcher.InitialTouch = DateTime.Now;
+                        var layout = this.Element as SwipeStackLayout;
+                        if (isLeft)
+                        {
+                            layout?.SwipeLeftEvent();
+                        }
+                        else
+                        {
+                            layout?.SwipeRightEvent();
+                        }
                     }
                     break;
-                case MotionEventActions.Up:
-
-                    TouchDispatcher.TouchingView = null;
-                    break;
                 case MotionEventActions.Move:
-
+                    var left = false;
+                    result = IsSwipeHorizontal(e, out left);
+                    Parent.RequestDisallowInterceptTouchEvent(result);
                     break;
                 default:
                     break;
             }
 
-            var result = IsSwipeUpOrDown(e);
-            if (result)
-            {
-                return base.DispatchTouchEvent(e);
-            }
-            else
-                return true;
-            //return base.DispatchTouchEvent(e);
+
+            System.Console.WriteLine(string.Format("TouchEvent: Action:{0} X:{1} Y:{2} Result:{3}", e.Action, e.GetX(), e.GetY(), result));
+            return true;
         }
 
-        private bool IsSwipeLeft(MotionEvent e)
+        private bool IsSwipeHorizontal(MotionEvent e, out bool isLeft)
         {
-            if (null != TouchDispatcher.TouchingView)
-            {
-                var length = e.GetX() - TouchDispatcher.StartingBiasX;
-                if (length > RealMinLength)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            var h = e.GetX() - startX;
+            var v = e.GetY() - startY;
+            isLeft = h < 0;
+            return Math.Abs(h) > Math.Abs(v);
         }
 
-        private bool IsSwipeRight(MotionEvent e)
+        /*
+        public override bool OnInterceptTouchEvent(MotionEvent e)
         {
-            if (null != TouchDispatcher.TouchingView)
+            var result = base.OnInterceptTouchEvent(e);
+            System.Console.WriteLine(string.Format("InterceptTouchEvent: Action:{0} X:{1} Y:{2} Result:{3}", e.Action, e.GetX(), e.GetY(), result));
+            return result;
+        }
+
+        public override bool DispatchTouchEvent(MotionEvent e)
+        {
+            switch (e.ActionMasked)
             {
-                var length = TouchDispatcher.StartingBiasX - e.GetX();
-                if (length > RealMinLength)
-                {
-                    return true;
-                }
-                else
-                {
-                }
+                case MotionEventActions.Down:
+                    break;
+                case MotionEventActions.Cancel:
+                case MotionEventActions.Up:
+                    break;
+                case MotionEventActions.Move:
+                    break;
+                default:
+                    break;
             }
 
-            return false;
+            var result = base.DispatchTouchEvent(e);
+            System.Console.WriteLine(string.Format("DispatchTouchEvent: Action:{0} X:{1} Y:{2} Result:{3}", e.Action, e.GetX(), e.GetY(), result));
+            return result;
         }
+        */
 
-        private bool IsSwipeUpOrDown(MotionEvent e)
-        {
-            if (null != TouchDispatcher.TouchingView)
-            {
-                var length = Math.Abs(TouchDispatcher.StartingBiasY - e.GetY());
-                return length > RealMinLength;
-            }
-
-            return false;
-        }
-    }
-
-    public static class TouchDispatcher
-    {
-        public static SwipeStackLayout TouchingView { get; internal set; }
-        public static float StartingBiasX { get; internal set; }
-        public static float StartingBiasY { get; internal set; }
-        public static DateTime InitialTouch { get; internal set; }
-        static TouchDispatcher()
-        {
-            TouchingView = null;
-            StartingBiasX = 0;
-            StartingBiasY = 0;
-        }
     }
 }

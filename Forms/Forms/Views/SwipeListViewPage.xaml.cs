@@ -28,30 +28,22 @@ namespace Forms.Views
             if (e.Item == null)
                 return;
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            await DisplayAlert("Item Tapped", e.Item.ToString() + " was tapped.", "OK");
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
         }
 
-        void Handle_ItemSwipeLeft(object sender, SwipedEventArgs e)
+        void ItemSwipeLeft(object sender, object parameter)
         {
+            System.Console.WriteLine(parameter);
             Items.Insert(0, "Add " + Items.Count);
         }
 
-        void Handle_ItemSwipeRight(object sender, SwipedEventArgs e)
+        void ItemSwipeRight(object sender, object parameter)
         {
-            Items.Remove(e.Parameter.ToString());
-        }
-
-        void ItemSwipeLeft(object sender, string parameter)
-        {
-            Items.Insert(0, "Add " + Items.Count);
-        }
-
-        void ItemSwipeRight(object sender, string parameter)
-        {
-            Items.Remove(parameter);
+            System.Console.WriteLine(parameter);
+            Items.Remove(parameter.ToString());
         }
     }
 }
