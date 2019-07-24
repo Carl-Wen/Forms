@@ -20,15 +20,25 @@ namespace Forms.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem {Id = MenuItemType.Circle, Title="Circle" },
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" },
-                new HomeMenuItem {Id = MenuItemType.SwipeListView, Title="SwipeList" }
+                //new HomeMenuItem {Id = MenuItemType.Circle, Title="Circle" },
+                //new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
+                //new HomeMenuItem {Id = MenuItemType.About, Title="About" },
+                //new HomeMenuItem {Id = MenuItemType.SwipeListView, Title="SwipeList" },
+                //new HomeMenuItem {Id = MenuItemType.Animation, Title="Animation" }
             };
+
+            foreach (var item in Enum.GetValues(typeof(MenuItemType)))
+            {
+                menuItems.Add(new HomeMenuItem
+                {
+                    Id = (MenuItemType)item,
+                    Title = item.ToString()
+                });
+            }
 
             ListViewMenu.ItemsSource = menuItems;
 
-            ListViewMenu.SelectedItem = menuItems[3];
+            ListViewMenu.SelectedItem = menuItems[menuItems.Count - 1];
 
             ListViewMenu.ItemSelected += async (sender, e) =>
             {

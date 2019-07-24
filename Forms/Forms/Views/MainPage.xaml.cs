@@ -21,7 +21,7 @@ namespace Forms.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.SwipeListView, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.Animation, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -41,6 +41,9 @@ namespace Forms.Views
                         break;
                     case (int)MenuItemType.SwipeListView:
                         MenuPages.Add(id, new NavigationPage(new SwipeListViewPage()));
+                        break;
+                    case (int)MenuItemType.Animation:
+                        MenuPages.Add(id, new NavigationPage(new ColorAnimationPage()));
                         break;
                 }
             }
