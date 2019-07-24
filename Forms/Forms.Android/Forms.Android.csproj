@@ -44,7 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DexMaker">
-      <HintPath>bin\DexMaker.dll</HintPath>
+      <HintPath>dll\DexMaker.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="System" />
