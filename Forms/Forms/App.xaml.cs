@@ -12,7 +12,9 @@ namespace Forms
         public App()
         {
             InitializeComponent();
-
+#if DEBUG
+            HotReloader.Current.Run(this);
+#endif
             DependencyService.Register<MockDataStore>();
             MainPage = new MainPage();
         }
