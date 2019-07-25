@@ -1,10 +1,6 @@
 ﻿using Forms.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,9 +9,33 @@ namespace Forms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ColorAnimationPage : ContentPage
     {
+        public ICommand TestCommand { get; private set; }
+
         public ColorAnimationPage()
         {
             InitializeComponent();
+
+            TestCommand = new Command(TestCommandAction);
+        }
+
+        private void TestCommandAction()
+        {
+
+        }
+
+        private void TapGestureRecognizer_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Pressed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Released(object sender, EventArgs e)
+        {
+
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)

@@ -6,12 +6,12 @@ namespace Forms.Widget
 {
     public class SwipeStackLayout : StackLayout
     {
-        public static readonly BindableProperty LeftCommandProperty = BindableProperty.Create(nameof(SwipeLeftCommand), typeof(ICommand), typeof(ICommand));
-        public static readonly BindableProperty RightCommandProperty = BindableProperty.Create(nameof(SwipeRightCommand), typeof(ICommand), typeof(ICommand));
+        public static readonly BindableProperty LeftCommandProperty = BindableProperty.Create(nameof(SwipeLeftCommand), typeof(ICommand), typeof(SwipeStackLayout));
+        public static readonly BindableProperty RightCommandProperty = BindableProperty.Create(nameof(SwipeRightCommand), typeof(ICommand), typeof(SwipeStackLayout));
 
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(object));
-        public static readonly BindableProperty LeftCommandParameterProperty = BindableProperty.Create(nameof(SwipeLeftCommandParameter), typeof(object), typeof(object));
-        public static readonly BindableProperty RightCommandParameterProperty = BindableProperty.Create(nameof(SwipeRightCommandParameter), typeof(object), typeof(object));
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(SwipeStackLayout));
+        public static readonly BindableProperty LeftCommandParameterProperty = BindableProperty.Create(nameof(SwipeLeftCommandParameter), typeof(object), typeof(SwipeStackLayout));
+        public static readonly BindableProperty RightCommandParameterProperty = BindableProperty.Create(nameof(SwipeRightCommandParameter), typeof(object), typeof(SwipeStackLayout));
 
         public event EventHandler<object> SwipeLeft;
         public event EventHandler<object> SwipeRight;
