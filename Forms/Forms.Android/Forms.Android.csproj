@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -105,7 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Forms\Forms.csproj">
-      <Project>{BBE59125-A718-4D4A-A2E0-A5C5802B9EDE}</Project>
+      <Project>{432E8CFB-09B3-4352-986E-FA21CE7B47B2}</Project>
       <Name>Forms</Name>
     </ProjectReference>
   </ItemGroup>
