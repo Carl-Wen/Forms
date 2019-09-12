@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-
+using Forms.DependencyServices;
 using Xamarin.Forms;
 
 namespace Forms.ViewModels
@@ -19,6 +19,8 @@ namespace Forms.ViewModels
         public void TestCommandAction()
         {
             //Device.OpenUri(new Uri("https://xamarin.com/platform")
+            var service = DependencyService.Get<IAppService>();
+            service?.Quit();
         }
     }
 }
