@@ -13,7 +13,7 @@ namespace Forms
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
-            MainPage = new ScrollPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
