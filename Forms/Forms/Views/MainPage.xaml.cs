@@ -48,6 +48,9 @@ namespace Forms.Views
                     case (int)MenuItemType.ModalPage:
                         MenuPages.Add(id, new NavigationPage(new ModalPage()));
                         break;
+                    case (int)MenuItemType.Scroll:
+                        MenuPages.Add(id, new NavigationPage(new ScrollPage()));
+                        break;
                 }
             }
 

@@ -14,7 +14,7 @@ namespace Forms.Views
 
         public void Push(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new ModalPage());
+            Navigation.PushModalAsync(new ModalPage(), true);
         }
 
         public void Pop(object sender, EventArgs e)
