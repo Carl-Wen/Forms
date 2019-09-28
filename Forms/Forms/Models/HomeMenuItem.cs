@@ -10,7 +10,8 @@ namespace Forms.Models
         Browse,
         About,
         SwipeListView,
-        Animation
+        Animation,
+        ListEntry
     }
     public class HomeMenuItem
     {

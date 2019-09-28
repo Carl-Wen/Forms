@@ -1,43 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Forms.ViewModels"
-             mc:Ignorable="d"
-             x:Class="Forms.Views.ColorAnimationPage">
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Forms.ViewModels"
+    mc:Ignorable="d"
+    x:Class="Forms.Views.ColorAnimationPage">
     <ContentPage.BindingContext>
-        <local:ViewAnimationPageViewModel />
+        <local:ViewAnimationPageViewModel/>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
         <StackLayout>
-            <Label 
-                Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Welcome to Xamarin.Forms!" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
 
-            <Button 
-                Text="Test"
-                BackgroundColor="Gray"
-                BorderWidth="4"
-                BorderColor="LawnGreen"
-                Clicked="TapGestureRecognizer_Clicked"
-                Pressed="TapGestureRecognizer_Pressed"
-                Released="TapGestureRecognizer_Released"
-                Command="{Binding TestCommand}" />
+            <Button Text="Test" BackgroundColor="Gray" BorderWidth="4" BorderColor="LawnGreen" Clicked="TapGestureRecognizer_Clicked" Pressed="TapGestureRecognizer_Pressed" Released="TapGestureRecognizer_Released" Command="{Binding TestCommand}"/>
 
-            <Frame
-                x:Name="frame"
-                WidthRequest="128"
-                HeightRequest="128"
-                HasShadow="True"
-                Padding="0"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                BorderColor="BlueViolet"
-                BackgroundColor="Accent"
-                CornerRadius="64">
+            <Frame x:Name="frame" WidthRequest="128" HeightRequest="128" HasShadow="True" Padding="0" HorizontalOptions="Center" VerticalOptions="Center" BorderColor="BlueViolet" BackgroundColor="Accent" CornerRadius="64">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                 </Frame.GestureRecognizers>
