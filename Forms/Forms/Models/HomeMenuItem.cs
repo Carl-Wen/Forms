@@ -11,6 +11,8 @@ namespace Forms.Models
         About,
         SwipeListView,
         Animation,
+        ModalPage,
+        Scroll,
         ListEntry
     }
     public class HomeMenuItem

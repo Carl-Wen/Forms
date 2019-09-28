@@ -45,6 +45,12 @@ namespace Forms.Views
                     case (int)MenuItemType.Animation:
                         MenuPages.Add(id, new NavigationPage(new ColorAnimationPage()));
                         break;
+                    case (int)MenuItemType.ModalPage:
+                        MenuPages.Add(id, new NavigationPage(new ModalPage()));
+                        break;
+                    case (int)MenuItemType.Scroll:
+                        MenuPages.Add(id, new NavigationPage(new ScrollPage()));
+                        break;
                     case (int)MenuItemType.ListEntry:
                         MenuPages.Add(id, new NavigationPage(new ListEntryPage()));
                         break;
