@@ -21,7 +21,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:ListEntryPage />
+                <views:ImageViewerPage />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

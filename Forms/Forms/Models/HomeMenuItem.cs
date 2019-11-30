@@ -13,7 +13,8 @@ namespace Forms.Models
         Animation,
         ModalPage,
         Scroll,
-        ListEntry
+        ListEntry,
+        ImageViewer
     }
     public class HomeMenuItem
     {

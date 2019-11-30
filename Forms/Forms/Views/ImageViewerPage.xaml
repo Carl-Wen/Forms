@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             xmlns:local="clr-namespace:Forms.ViewModels"
+             xmlns:widget="clr-namespace:Forms.Widget"
+             x:Class="Forms.Views.ImageViewerPage">
+    <ContentPage.BindingContext>
+        <local:ImageViewerPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <!--<StackLayout>
+            <widget:ZoomImage
+                Source="http://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg"/>
+        </StackLayout>-->
+        <CarouselView>
+            <CarouselView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>https://ws1.sinaimg.cn/large/0065oQSqly1g0ajj4h6ndj30sg11xdmj.jpg</x:String>
+                    <x:String>http://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg</x:String>
+                    <x:String>https://ws1.sinaimg.cn/large/0065oQSqly1fytdr77urlj30sg10najf.jpg</x:String>
+                    <x:String>https://ws1.sinaimg.cn/large/0065oQSqly1fytdr77urlj30sg10najf.jpg</x:String>
+                    <x:String>https://ws1.sinaimg.cn/large/0065oQSqly1fytdr77urlj30sg10najf.jpg</x:String>
+                </x:Array>
+            </CarouselView.ItemsSource>
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <!--<widget:ZoomImage Source="{Binding .}" />-->
+                        <Image Source="{Binding .}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </ContentPage.Content>
+</ContentPage>

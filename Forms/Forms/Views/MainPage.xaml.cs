@@ -21,7 +21,7 @@ namespace Forms.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.ListEntry, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.ImageViewer, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -53,6 +53,9 @@ namespace Forms.Views
                         break;
                     case (int)MenuItemType.ListEntry:
                         MenuPages.Add(id, new NavigationPage(new ListEntryPage()));
+                        break;
+                    case (int)MenuItemType.ImageViewer:
+                        MenuPages.Add(id, new NavigationPage(new ImageViewerPage()));
                         break;
                 }
             }
