@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using Forms.Models;
 using Forms.Views;
 using Forms.ViewModels;
+using Xamarin.Forms.Internals;
+using System.Collections.ObjectModel;
 
 namespace Forms.Views
 {
@@ -42,6 +44,18 @@ namespace Forms.Views
         async void AddItem_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+        }
+
+        void SelectAll_Clicked(object sender, EventArgs e)
+        {
+            viewModel.Items.ForEach((item) => {
+                item.Selected = true;
+            });
+        }
+
+        void Delete_Clicked(object sender, EventArgs e)
+        {
+            viewModel.Items = new ObservableCollection<Item>(viewModel.Items.ToList().FindAll(x => !x.Selected).ToList());
         }
 
         protected override void OnAppearing()

@@ -12,7 +12,11 @@ namespace Forms.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
+        private ObservableCollection<Item> _items;
+        public ObservableCollection<Item> Items {
+            get => _items;
+            set => SetProperty(ref _items, value);
+        }
         public Command LoadItemsCommand { get; set; }
 
         public ItemsViewModel()
@@ -35,7 +39,7 @@ namespace Forms.ViewModels
                 return;
 
             IsBusy = true;
-
+            await Task.Delay(1000);
             try
             {
                 Items.Clear();
