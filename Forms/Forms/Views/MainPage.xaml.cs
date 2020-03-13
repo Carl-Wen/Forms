@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using Forms.Models;
+using System.Diagnostics;
 
 namespace Forms.Views
 {
@@ -22,6 +23,21 @@ namespace Forms.Views
             MasterBehavior = MasterBehavior.Popover;
 
             MenuPages.Add((int)MenuItemType.ImageViewer, (NavigationPage)Detail);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            try
+            {
+                var x = Application.Current.MainPage as MasterDetailPage;
+                var y = x.Detail as NavigationPage;
+                y.BarBackgroundColor = Color.White;
+                y.BarTextColor = Color.Black;
+            }catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         public async Task NavigateFromMenu(int id)

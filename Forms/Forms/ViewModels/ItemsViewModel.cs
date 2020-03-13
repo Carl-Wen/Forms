@@ -39,7 +39,7 @@ namespace Forms.ViewModels
                 return;
 
             IsBusy = true;
-            await Task.Delay(1000);
+            await Task.Delay(2000);
             try
             {
                 Items.Clear();
